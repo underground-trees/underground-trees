@@ -12,7 +12,14 @@
 /* Avner 11-12.24, from the implementations around 20-21 and earlier,         */
 /* back to 2001.                                                              */
 /*                                                                            */
-/*                                                                            */
+/* This distribution of underground trees is open source (aka free) software. */
+/* It is distributed under conditions specified in a license (comprises of    */
+/* license.txt, LGPL.txt, GPL.txt), which gives users wide freedom, and       */
+/* imposes several obligations.                                               */
+/* See a formal notice about this distribution being open source in section 3 */
+/* of license.txt .                                                           */
+/* The distribution is provided without claiming anything, and offers no      */
+/* guarantee of any kind, no warranty, and no liability, whatsoever.          */
 /*                                                                            */
 /******************************************************************************/
 
