@@ -3,30 +3,34 @@
 
 1. This document
 The Underground Trees project and distribution is binded by the
-LGPL license, with an addition specified below (see 5.2).
+LGPL license, with additions specified below (see 2.2, 5.2).
 The license LGPL, is long and cumbersome, clearly written by lawyers.
 Here we attempt to simplify, and explain the essence of the license
-in a form readable by non-lawyers, and add clause 5.2.
+in a form readable by non-lawyers, and add clauses 2.2, 5.2.
 The terms of this document are written by non-lawyers, for the sake
 of introduction and explanation. The LGPL license then elaborates
 this in legalese.
-The clause 5.2 doesn't appear in the LGPL license. In all other
+The clauses 2.2, 5.2 don't appear in the LGPL license. In all other
 matters, the LGPL license has precedence in case the LGPL license
 happens to conflict with this document.
 
 2. The essence of the license
-The purpose of the license is to keep the distribution, and the distribution only,
-open source. The distribution of a product that uses Underground Trees (as well as
-re-distribution of the original, either with or without changes), should also
-include what the Underground Trees distribution includes:
-1- The LGPL license (pertaining only to Underground Trees, not the whole product
-   distribution, as opposed to GPL which mandates this on the whole product)
-   and its basis, the GPL license.
+The purpose of the license is to keep the distribution of Underground Trees, and
+the distribution only, open source. The distribution of a product that uses
+Underground Trees (as well as re-distribution of the original, either with or
+without changes), should also include what the Underground Trees distribution includes:
+1- The LGPL license (pertaining only to Underground Trees, not the user's whole
+   product distribution, as opposed to GPL which mandates this on the whole
+   product) and its basis, the GPL license.
 2- This license document, containing additions and explanations.
 3- The Underground Trees source code, as it's used in the distributed product (or
    the original Underground Trees, in case it wasn't changed for the product).
+
+In case there changes to the original Underground Trees, the product distribution
+should also include:
 4- A specification of the changes made to Underground Trees from its original
    distribution.
+
 The terms of the license will bind the receivers of the distribution in case they
 wish to distribute Underground Trees (with or without changes) further. The
 terms in the re-distribution must also follow those in the distribution, including
@@ -34,7 +38,8 @@ binding the receivers by the license, thus including this responsibility to tran
 the license and the terms in the distribution, upon subsequent re-distributions.
 
 3. Formal notice on the distribution of Underground Trees being free software
-Copyright (C) Prod CAD and Avner Shapiro 2020-24
+Underground Trees, a general package of C++ trees.
+Copyright (C) Prod CAD and Avner Shapiro 2020-25
 
 This distribution is free software: it can be redistributed and/or modified
 under the combined terms specified here and in the GNU Lesser General Public
@@ -45,9 +50,8 @@ but without any warranty; without even the implied warranty of
 merchantability or fitness for a particular purpose. See the
 GNU Lesser General Public License version 3 for more details.
 
-The distribution should include a copy of
-the GNU Lesser General Public License in 2 files: LGPL.txt and GPL.txt.
-If not, see https://www.gnu.org/licenses/ .
+The distribution should include a copy of the GNU Lesser General Public License
+in 2 files: LGPL.txt and GPL.txt. If not, see https://www.gnu.org/licenses/ .
 
 4. Permissions for users of the distribution
 1- Changing the source code
@@ -62,7 +66,7 @@ These permissions clearly intended only as far as the obligations are kept!
    to train AI models or programs. This is in contrary to what may be concluded
    from LGPL, and GPL.
 3- The license (this document, LGPL, and GPL) should be included upon Re-distribution.
-4- The same obligations of the license must bind the receiver upon Re-distribution,
+4- The same obligations of the license must be imposed on the receiver upon Re-distribution,
    including this condition, i.e. binding all further receivers by the obligations.
 
 6. Non Warranty
@@ -76,4 +80,4 @@ There is no liability whatsoever for damages related to using Underground Trees
 (we don't imagine any damages occurring related to the use of the distribution,
 but we're aware of the creativity of people, and hide from the extreme legal-minded).
 
-Avner and Prod CAD, 10.2024
+Avner, 10.2024
