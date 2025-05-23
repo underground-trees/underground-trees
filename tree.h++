@@ -14,8 +14,7 @@
 /*                                                                            */
 /* This distribution of underground trees is open source (aka free) software. */
 /* It is distributed under conditions specified in a license (comprises of    */
-/* license.txt, LGPL.txt, GPL.txt), which gives users wide freedom, and       */
-/* imposes several obligations.                                               */
+/* license.txt, and the accompanying docs LGPL.txt, GPL.txt).                 */
 /* See a formal notice about this distribution being open source in section 3 */
 /* of license.txt .                                                           */
 /* The distribution is provided without claiming anything, and offers no      */
