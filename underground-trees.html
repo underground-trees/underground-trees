@@ -1,0 +1,236 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Underground Trees - a general-purpose tree library</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <!-- link rel="shortcut icon" href="icon-16.gif" / -->
+</head>
+
+
+<body>
+
+<h1>Underground Trees - a general-purpose tree library</h1>
+<h4>A new tree library</h4>
+<p>
+Underground trees is a new tree library.
+It&apos;s the latest result of our long lasting interest in tree libraries,
+which dates back many years (including previous implementations from 2001 and 2003).
+Relative to other tree libraries, this library is more general, flexible, and
+in our opinion, elegant. There are very few assumptions and restrictions.
+</p>
+
+<p>
+An important achievement is, that this design lends itself for implementations
+of more specific types of trees.
+</p>
+
+
+
+<h4>The basics</h4>
+<p>
+<!-- This implementation requires inheriting a class from a tree template.
+By specifying the class in the template parameters, the library gets the type it will use
+for the members stored, and the function arguments and return values. -->
+For users there is only one class they define and use, and that class can store
+members and functions, and that class is also the return type from the basic functions.
+This provides the library users clarity and simplicity.
+</p>
+
+<p>
+Iterators are clear and simple, and go a long way past the iterators
+available in some other tree libraries.
+</p>
+
+<p>
+    NULL children are suppported.
+</p>
+
+<p>
+A flexible handling of arrays through an array interface that allows steering away from those of STL.
+</p>
+
+<h4>Examples</h4>
+
+In the example below a tree class is defined. The definition is by inheritance.
+A few points worth noticing:
+<ul>
+<li>
+  The example uses the derived class, not the library&apos;s base class!
+</li>
+<li>
+  The derived class can add members and functions, and also over-ride functions
+  from the base class, as they use the same type, that of the derived class.
+</li>
+<li>
+  Iterators are simple, and the use is simplified even further with a macro.
+</li>
+<li>
+  Null children are supported.
+</li>
+</ul>
+
+<hr>
+<PRE>
+// In this example a new class adds several methods, and a value DM.
+// Then the methods are used interchangeably with the methods derived from the base class.
+
+using namespace ProdCAD;
+using namespace ProdCAD::UnderGround;
+
+class DerInstTree : public Tree&lt;DerInstTree, DynArrSTLImp&gt;
+{
+    public:
+        DerInstTree (unsigned val=0) :
+            ValDM(val)
+            { ; }
+
+        unsigned Val (void) const
+            { return (ValDM); }
+
+        void SetVal (unsigned val)
+            { ValDM = val; }
+
+        DerInstTree& AddNewChild (unsigned val)
+            {
+                ChildArrDM.Add (new DerInstTree (val));
+                LastChild()-&gt;SetParent (this);
+                return (*LastChild());
+            }
+
+    private:
+        unsigned ValDM;
+};
+
+
+void Test1()
+{
+    DerInstTree bt;
+    DerInstTree& btc1 = bt.Tree::AddNewChild();
+           // Yes! The library returns the user&apos;s derived class, not the library&apos;s base class!
+
+    bt.LastChild()-&gt;SetVal (5);
+    DerInstTree& btc2 = bt.AddNewChild (4);
+    btc1.AddNewChild (1);
+    btc1.Tree::AddChild (NULL);
+           // Null children are supported.
+
+    btc1.AddNewChild (2);
+    btc1.AddNewChild (3);
+
+    BFSIter&lt;DerInstTree, DynArrSTLImp&gt; biter (bt);
+    for (biter.Init();
+        !biter.Done();
+           // The iterator knows when it&apos;s done, and users aren&apos;t required to compare it
+           // to other artificial iterators from other classes for finding out!
+        biter.Advance())
+        if (static_cast&lt;const DerInstTree*&gt;(biter))
+            cout &lt;&lt; "Val: " &lt;&lt; biter->Val() &lt;&lt; endl;
+
+    DFSIter&lt;DerInstTree, DynArrSTLImp&gt; diter (bt);
+    DFSIterLoop (diter) {
+        if (static_cast&lt;const DerInstTree*&gt;(diter))
+            cout &lt;&lt; std::string(2*diter.Level(),' ') &lt;&lt; "Val: " &lt;&lt; diter->Val() &lt;&lt;
+                    ", children: " &lt;&lt; diter->Children() &lt;&lt;
+                    ", level: " &lt;&lt; diter->Level() &lt;&lt;
+                    (diter->IsLeaf() ? " Leaf. " : "") &lt;&lt;
+                    (diter->IsRoot() ? " Root. " : "") &lt;&lt; endl;
+        else
+            // A NULL child is not a problem for the iterator.
+            cout &lt;&lt; std::string(2*diter.Level(),' ') &lt;&lt; "NULL." &lt;&lt; endl;
+    }
+
+    DerInstTree* t4;
+    if (DerInstTree::Find (4, diter, t4))
+           // Yes! Tree::Find returns a boolean and that&apos;s it! Upon finding, the user&apos;s supplied a node as well.
+        cout &lt;&lt; "val of t4: " &lt;&lt; t4-&gt;Val() &lt;&lt; endl;
+
+    BFSIter&lt;DerInstTree, DynArrSTLImp&gt; biter (bt);
+    DerInstTree* t5;
+    if (DerInstTree::Find (5, biter, t5))
+        cout &lt;&lt; "val of t5: " &lt;&lt; t5-&gt;Val() &lt;&lt; endl;
+
+    if (!DerInstTree::Find (6, diter, t4))
+        cout &lt;&lt; "val of 6 wasn&apos;t found. " &lt;&lt; endl;
+}
+
+int main()
+{
+    Test1();
+    return (0);
+}
+
+</PRE>
+<hr>
+
+<h4><a href="https://github.com/underground-trees/underground-trees" target="_blank">
+Where to get the library, license, and tests</a></h4>
+<hr>
+
+<h4>Difficulties addressed</h4>
+<ul>
+<li>
+Good interface
+</li>
+<li>
+Good iterators
+</li>
+<li>
+Flexibility in class design, and tree management
+</li>
+<li>
+Support for NULL leaves
+</li>
+</ul>
+
+<h4>Difficulties not addressed</h4>
+<ul>
+<!-- li>
+  Non const iterators: It would be desirable for const and non-const (NC) iterators to
+  share their common parts (i.e. identify the large commonality and implement just once).
+  This is not the state of the current implementation.
+  Other designs that seemed more elegant to start with,
+  and relied on larger common parts, appeared lacking when diving deeper.
+  The main problem was, that it seemed unavoidable to require somwhere
+  an assignment of the type const=NC.
+</li -->
+
+<li>
+  Inheriting from a template derived from the tree template is not a problem.
+  Inheriting from an instance class derived from a template is a different story.
+<br />
+  The process for inheriting from an instance class tree derived from Underground Trees
+  loses some elegance, as that inherited class will not get
+  the same level of simplicity and elegance. The reason is that
+  the type of each tree item remains the type of the first derivation.
+<br />
+  The second derivation
+  will contain a lot of casting, some of it, possibly, dynamic.
+  Unless, as mentioned above, the derivation remains from a template.
+</li>
+
+</ul>
+
+<h4>Parametric Array type</h4>
+We&apos;ve made the basic array (i.e. the storage type
+for children and iterator state) parametric.
+This way different array implementations can be used.
+<br />
+As ours, our favorite, is lacking relative to STL in several criteria,
+an STL implementation of the array interface is provided.
+
+
+<br />
+<br />
+Avner Shapiro, December 2020
+<br />
+underground-trees@prod-cad.com
+<br />
+<br />
+<br />
+
+<div id="footer">
+	<span>&copy; 2020-25 Prod CAD. All rights reserved. </span>
+</div>
+
+</body>
+</html>
